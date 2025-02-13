@@ -33,5 +33,5 @@ object DatabaseModule {
 
     @Provides
     fun provideHospitalDao(appDatabase: AppDatabase): HospitalDao =
-        appDatabase.cocheDao()
+        appDatabase.hospitalDao()
 }

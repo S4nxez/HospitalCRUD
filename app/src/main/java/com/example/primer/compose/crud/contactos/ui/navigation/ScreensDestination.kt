@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
+object DoctorsDestination
+
+@Serializable
 object PatientsDestination
 
 @Serializable

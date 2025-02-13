@@ -1,7 +1,5 @@
 package com.example.primer.compose.crud.contactos.ui.utils
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
@@ -14,12 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.primer.compose.crud.contactos.ui.navigation.AppDestination
 
 
@@ -28,13 +22,10 @@ import com.example.primer.compose.crud.contactos.ui.navigation.AppDestination
 fun TopBar(
     navController: NavController,
     screen: AppDestination?,
-
     ) {
 
     screen?.let {destination ->
-        TopAppBar(
-
-            colors = TopAppBarDefaults.topAppBarColors(
+        TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 titleContentColor = MaterialTheme.colorScheme.primary,
             ),
@@ -43,14 +34,10 @@ fun TopBar(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = destination.scaffoldState.topBarState.arrangement
                 ) {
-                    Text(
-                        text = destination.title,
-                    )
+                    Text(text = destination.title,)
                 }
-
             },
             navigationIcon = {
-
                 if (destination.scaffoldState.topBarState.showNavigationIcon) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -59,12 +46,8 @@ fun TopBar(
                         )
                     }
                 }
-                else{
-                    IconButton(onClick = { }) {
-
-                    }
-                }
-
+                else
+                    IconButton(onClick = { }) { }
             },
             actions = destination.scaffoldState.topBarState.actions,
             scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),

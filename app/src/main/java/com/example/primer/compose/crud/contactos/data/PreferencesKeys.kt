@@ -20,7 +20,7 @@ class PreferencesRepository @Inject constructor(private val dataStore: DataStore
             preferences[PreferencesKeys.USER_ID] ?: -1
         }
 
-    suspend fun saveUserName(id: Int) {
+    suspend fun saveUserId(id: Int) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.USER_ID] = id
         }

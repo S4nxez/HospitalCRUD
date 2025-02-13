@@ -25,14 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.primer.compose.crud.contactos.R
 import com.example.primer.compose.crud.contactos.domain.model.Patient
 import com.example.primer.compose.crud.contactos.ui.theme.AppTheme
 import com.example.primer.compose.crud.contactos.ui.utils.UiEvent
+import com.example.primer.compose.crud.contactos.ui.utils.fontDimensionResource
 import kotlinx.coroutines.Job
 
 @Composable
@@ -77,7 +76,7 @@ fun DetalleContent(
     var patientPhone by remember { mutableStateOf("") }
 
     LaunchedEffect(patient) {
-        patientName = patient?.name ?: ""
+        patientName = patient?.nombre ?: ""
         patientBirthDate = patient?.birthDate ?: ""
         patientPhone = patient?.phone ?: ""
     }
@@ -100,68 +99,79 @@ fun DetalleContent(
 
             Text(
                 text = "Nombre:",
-                style = MaterialTheme.typography.labelMedium.copy(fontSize = 20.sp)
+                style = MaterialTheme.typography.labelMedium
+                    .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_4DP)))
             if (isEditMode) {
                 TextField(
                     value = patientName,
                     onValueChange = { patientName = it },
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 25.sp)
+                    textStyle = MaterialTheme.typography.bodyLarge
+                        .copy(fontSize = fontDimensionResource(R.dimen.SP25))
                 )
             } else {
                 Text(
                     text = patientName,
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 25.sp)
+                    style = MaterialTheme.typography.bodyLarge
+                        .copy(fontSize = fontDimensionResource(R.dimen.SP25))
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_16)))
 
             Text(
                 text = "ID:",
-                style = MaterialTheme.typography.labelMedium.copy(fontSize = 18.sp)
+                style = MaterialTheme.typography.labelMedium
+                    .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.PADDING_8DP)))
             Text(
                 text = patient?.id?.toString() ?: "",
-                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                style = MaterialTheme.typography.bodyMedium
+                    .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_16)))
 
             Text(
                 text = "Fecha de Nacimiento:",
-                style = MaterialTheme.typography.labelMedium.copy(fontSize = 18.sp)
+                style = MaterialTheme.typography.labelMedium
+                    .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_4DP)))
             if (isEditMode) {
                 TextField(
                     value = patientBirthDate,
                     onValueChange = { patientBirthDate = it },
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                    textStyle = MaterialTheme.typography.bodyMedium
+                        .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
                 )
             } else {
                 Text(
                     text = patientBirthDate,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                    style = MaterialTheme.typography.bodyMedium
+                        .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_16)))
 
             Text(
                 text = "Teléfono:",
-                style = MaterialTheme.typography.labelMedium.copy(fontSize = 18.sp)
+                style = MaterialTheme.typography.labelMedium
+                    .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_4DP)))
             if (isEditMode) {
                 TextField(
                     value = patientPhone,
                     onValueChange = { patientPhone = it },
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                    textStyle = MaterialTheme.typography.bodyMedium
+                        .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
                 )
             } else {
                 Text(
                     text = patientPhone,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 18.sp)
+                    style = MaterialTheme.typography.bodyMedium
+                        .copy(fontSize = fontDimensionResource(R.dimen.FONT_18SP))
                 )
             }
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.PADDING_16)))
@@ -173,16 +183,16 @@ fun DetalleContent(
                 .padding(bottom = dimensionResource(R.dimen.PADDING_16))
         ) {
             Button(onClick = onDelete, modifier = Modifier.weight(1f)) {
-                Text("Borrar", fontSize = 16.sp)
+                Text("Borrar", fontSize = fontDimensionResource(R.dimen.SP16))
             }
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.PADDING_8DP)))
             Button(
                 onClick = {
                     isEditMode = !isEditMode
                     if (!isEditMode) {
                         onEdit(Patient(
                             id = patient?.id ?: 0,
-                            name = patientName,
+                            nombre = patientName,
                             birthDate = patientBirthDate,
                             phone = patientPhone,
                             paid = patient?.paid ?: 0,
@@ -193,11 +203,13 @@ fun DetalleContent(
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text(if (isEditMode) "Guardar" else "Editar", fontSize = 16.sp)
+                Text(if (isEditMode) "Guardar" else "Editar",
+                    fontSize = fontDimensionResource(R.dimen.SP16))
             }
         }
     }
 }
+
 @Preview(
     showBackground = true,
     showSystemUi = true,
@@ -210,7 +222,7 @@ fun PreviewDetallePatient() {
         DetalleContent(
             patient = Patient(
                 id = 0,
-                name = "Daniel",
+                nombre = "Daniel",
                 birthDate = "Nacimiento",
                 phone = "asd",
                 paid = 0,

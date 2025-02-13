@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.primer.compose.crud.contactos.domain.model.Patient
 
 @Dao
 interface HospitalDao {
@@ -33,4 +32,7 @@ interface HospitalDao {
 
     @Query("SELECT * FROM medical_records WHERE patient_id = :id")
     fun getMedicalRecordsById(id: Int): List<MedicalRecordEntity>
+
+    @Query("SELECT * FROM doctors where doctor_id IN(SELECT doctor_id FROM patient_doctor WHERE patient_id = :id)")
+    fun getDoctorsByPatient(id: Int): List<DoctorEntity>
 }

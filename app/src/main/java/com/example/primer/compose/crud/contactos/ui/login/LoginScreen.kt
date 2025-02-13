@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.primer.compose.crud.contactos.R
@@ -41,7 +40,7 @@ fun LoginScreen(
     LoginContent(loginViewModel)
 
     LaunchedEffect(uiState.event) {
-        uiState.event?.let {
+        uiState.event.forEach() {
             if (it is UiEvent.ShowSnackbar) {
                 showSnackbar(it.message, false) {}
             } else if (it is UiEvent.Navigate) {
@@ -49,6 +48,7 @@ fun LoginScreen(
                     popUpTo(LoginDestination) { inclusive = true }
                 }
             }
+            loginViewModel.handleEvent(LoginEvent.UiEventDone)
         }
     }
 }

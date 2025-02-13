@@ -24,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.primer.compose.crud.contactos.ui.doctors.ListadoDoctorScreen
 import com.example.primer.compose.crud.contactos.ui.login.LoginScreen
 import com.example.primer.compose.crud.contactos.ui.medrecords.ListadoRecordsScreen
 import com.example.primer.compose.crud.contactos.ui.patients.detalle.DetallePatientsScreen
@@ -58,7 +59,9 @@ fun Navigation() {
     var isBottomBarVisible by rememberSaveable { mutableStateOf(false) }
 
     val state by navController.currentBackStackEntryAsState()
-    val screen = appDestinationList.find { screen ->
+
+    val appTopBarList = listOf(MedRecords, Doctors, Patients, Detalle)
+    val screen = appTopBarList.find { screen ->
         state?.destination?.route == screen.route::class.qualifiedName
     }
     val topBar: @Composable () -> Unit = {
@@ -89,20 +92,25 @@ fun Navigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable<LoginDestination> {
+                isBottomBarVisible = Login.onBottomBar
                 LoginScreen(
                     showSnackbar = showSnackbar,
                     navController = navController
                 )
             }
 
+            composable<DoctorsDestination> {
+                isBottomBarVisible = Doctors.onBottomBar
+                ListadoDoctorScreen()
+            }
+
             composable<MedRecordDestination> {
-                isBottomBarVisible = true
+                isBottomBarVisible = MedRecords.onBottomBar
                 ListadoRecordsScreen()
             }
 
             composable<PatientsDestination> {
-                isBottomBarVisible = true
-
+                isBottomBarVisible = Patients.onBottomBar
                 ListadoPatientScreen(
                     onNavigateDetalle = { id -> navController.navigate(DetallePatientDestination(id)) },
                 )
@@ -110,7 +118,6 @@ fun Navigation() {
 
             composable<DetallePatientDestination> {
                 val id = (it.toRoute() as DetallePatientDestination).id
-                isBottomBarVisible = true
 
                 DetallePatientsScreen(
                     patientId = id,

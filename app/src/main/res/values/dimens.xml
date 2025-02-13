@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="PADDING_16">16dp</dimen>
+    <dimen name="PADDING_8DP">8dp</dimen>
+    <dimen name="PADDING_4DP">4dp</dimen>
+    <dimen name="SIZE_70">70dp</dimen>
+    <dimen name="PADDING_14DP">14dp</dimen>
+    <dimen name="FONT_18SP">18sp</dimen>
+    <dimen name="SP25">25sp</dimen>
+    <dimen name="SP16">16sp</dimen>
 </resources>

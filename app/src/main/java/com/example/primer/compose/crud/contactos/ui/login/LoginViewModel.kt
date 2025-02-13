@@ -29,6 +29,8 @@ class LoginViewModel @Inject constructor(
     fun handleEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.doLogin -> doLogin(event.id)
+            is LoginEvent.UiEventDone ->
+                _uiState.update { it.copy(event = emptyList()) }
         }
     }
 
@@ -37,14 +39,14 @@ class LoginViewModel @Inject constructor(
             val result = logInFlow.invoke(id)
             _uiState.update {
                 if (result.isNotEmpty()) {
-                    preferencesRepository.saveUserName(id)
+                    preferencesRepository.saveUserId(id)
                     it.copy(
                         patientId = id,
-                        event = UiEvent.Navigate(MedRecordDestination)
+                        event = listOf(UiEvent.Navigate(MedRecordDestination)),
                     )
                 } else {
                     it.copy(
-                        event = UiEvent.ShowSnackbar("Id no válido")
+                        event = listOf(UiEvent.ShowSnackbar("Id no válido"))
                     )
                 }
             }

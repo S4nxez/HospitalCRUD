@@ -29,6 +29,7 @@ class DetalleViewModel @Inject constructor(
         DetalleState()
     )
 
+
     val uiState: StateFlow<DetalleState> = _uiState.asStateFlow()
 
     fun handleEvent(event: DetalleEvent) {
